@@ -1,0 +1,26 @@
+2
+ #include <stdio.h>
+ #include <omp.h>
+ int main() { 
+    int n, threads; 
+    printf("Enter the number of iterations: "); 
+    scanf("%d", &n); 
+    printf("Enter toperating system number of threads: "); 
+    scanf("%d", &threads); 
+    omp_set_num_threads(threads); 
+    int iteration_owner[n]; 
+    for (int i = 0; i < n; i++) { 
+        iteration_owner[i] = omp_get_thread_num(); 
+    } 
+    for (int i = 0; i < n; i += 2) { 
+        int thread_id = iteration_owner[i];
+        if (i + 1 < n) 
+            printf("Thread %d:Iteration %d--%d\n", thread_id, i, i + 1); 
+        else 
+            printf("Thread %d : Iteration %d\n", thread_id, i);     
+} 
+ 
+    return 0; 
+  
+ 
+}
